@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('judul')
-SOBAT GULA
+SIGATRA ARCHIVE
 @endsection
 @section('judul_sub')
 Kesalahan Dalam Pages Halaman

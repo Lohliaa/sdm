@@ -3,7 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('home') }}">
-        <div class="sidebar-brand-text mx-6"><i class="bi bi-journal-bookmark-fill"></i> KARANGDUREN <span>ARCHIVE</span>
+        <div class="sidebar-brand-text mx-6"><i class="bi bi-journal-bookmark-fill"></i> SIGATRA <span>ARCHIVE</span>
         </div>
     </a>
 
@@ -21,9 +21,9 @@
     <!-- Heading -->
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('arsip_surat') }}">
+        <a class="nav-link" href="{{ url('mou') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Arsip</span></a>
+            <span>MOU</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ url('kategori_surat') }}">

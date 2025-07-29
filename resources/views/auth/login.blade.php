@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('judul')
-Karangduren Archive
+SIGATRA Archive
 @endsection
 @section('judul_sub')
 Form Login
@@ -53,16 +53,6 @@ Form Login
                                                 Login
                                             </button>
                                         </form>
-                                        <hr>
-                                        <hr>
-                                        @if (Route::has('password.request'))
-                                        <div class="text-center">
-                                            <a class="small" href="{{ route('password.request') }}">Lupa Password?</a>
-                                        </div>
-                                        @endif
-                                        <div class="text-center">
-                                            <a class="small" href="{{ url('register') }}">Daftar Akun!</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -75,17 +65,31 @@ Form Login
 
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 
-    @if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Registrasi Berhasil',
-            text: '{{ session('success') }}',
-        });
-    </script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
 @endif
 
-</body>
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: '{{ session('error') }}',
+        showConfirmButton: true
+    });
+</script>
+@endif
+
 @endsection

@@ -5,14 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\HomeExport;
 use App\Exports\HomeFilterExport;
 use App\Imports\HomeImport;
-use App\Models\ArsipSurat;
-use App\Models\Carline;
-use App\Models\Cost;
-use App\Models\Deadline;
 use App\Models\Home;
-use App\Models\KategoriSurat;
-use App\Models\KodeBudget;
-use App\Models\MasterBarang;
+use App\Models\MOU;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,24 +24,47 @@ class HomeController extends Controller
     {
         $home = Home::orderBy('id', 'asc')->get();
         $data = $home->all();
-        $arsip_surat = ArsipSurat::all();
-        $kategori_surat = KategoriSurat::all(); // Ambil semua data kategori_surat
-        return view('home', compact('kategori_surat', 'arsip_surat', 'home', 'data'));
+        $mou = MOU::all();
+        // $kategori_surat = KategoriSurat::all(); // Ambil semua data kategori_surat
+        return view('home', compact('mou', 'home', 'data'));
     }
 
-    public function searchHome(Request $request)
-    {
-        $home = $request->input('home');
+    // public function searchHome(Request $request)
+    // {
+    //     $home = $request->input('home');
         
-        // Lakukan pencarian berdasarkan input
-        $arsip_surat = ArsipSurat::where('kategori', 'LIKE', "%$home%")
-                                ->orWhere('nomor_surat', 'LIKE', "%$home%")
-                                ->orWhere('judul', 'LIKE', "%$home%")
-                                ->get();
+    //     // Lakukan pencarian berdasarkan input
+    //     $mou = MOU::where('no_sk', 'LIKE', "%$home%")
+    //                             ->orWhere('no_tambahan', 'LIKE', "%$home%")
+    //                             ->orWhere('status_kepegawaian', 'LIKE', "%$home%")
+    //                             ->orWhere('status_detail', 'LIKE', "%$home%")
+    //                             ->orWhere('nama', 'LIKE', "%$home%")
+    //                             ->orWhere('gelar', 'LIKE', "%$home%")
+    //                             ->orWhere('hari_kerja', 'LIKE', "%$home%")
+    //                             ->orWhere('jam_kerja', 'LIKE', "%$home%")
+    //                             ->orWhere('alamat', 'LIKE', "%$home%")
+    //                             ->orWhere('hari', 'LIKE', "%$home%")
+    //                             ->orWhere('tgl_mou', 'LIKE', "%$home%")
+    //                             ->orWhere('tempat_lahir', 'LIKE', "%$home%")
+    //                             ->orWhere('tanggal_lahir', 'LIKE', "%$home%")
+    //                             ->orWhere('unit_kerja', 'LIKE', "%$home%")
+    //                             ->orWhere('gaji_pokok', 'LIKE', "%$home%")
+    //                             ->orWhere('tunjangan_jabatan', 'LIKE', "%$home%")
+    //                             ->orWhere('tunjangan_transport', 'LIKE', "%$home%")
+    //                             ->orWhere('tunjangan_kinerja', 'LIKE', "%$home%")
+    //                             ->orWhere('tunjangan_fungsional', 'LIKE', "%$home%")
+    //                             ->orWhere('thp', 'LIKE', "%$home%")
+    //                             ->orWhere('terbilang', 'LIKE', "%$home%")
+    //                             ->orWhere('tgl_mulai', 'LIKE', "%$home%")
+    //                             ->orWhere('berlaku', 'LIKE', "%$home%")
+    //                             ->orWhere('tanggal_akhir', 'LIKE', "%$home%")
+    //                             ->orWhere('saksi1', 'LIKE', "%$home%")
+    //                             ->orWhere('saksi2', 'LIKE', "%$home%")
+    //                             ->get();
     
-        // Kembalikan view dengan hasil pencarian
-        return view('partialhome', compact('arsip_surat'));
-    }    
+    //     // Kembalikan view dengan hasil pencarian
+    //     return view('mou.partialmou', compact('mou'));
+    // }    
 
     public function show($id)
     {
@@ -60,10 +77,10 @@ class HomeController extends Controller
 
     public function download($id)
     {
-        $arsip_surat = ArsipSurat::findOrFail($id);
+        $mou = MOU::findOrFail($id);
         
         // Pastikan file path diambil dari arsip surat
-        $filePath = $arsip_surat->file_path;
+        $filePath = $mou->file_path;
         
         // Mengatur path lengkap file
         $fullPath = public_path('uploads/' . $filePath);
@@ -78,10 +95,10 @@ class HomeController extends Controller
     public function destroy($id)
     {
         // Temukan model berdasarkan ID atau lemparkan pengecualian jika tidak ditemukan
-        $arsip_surat = ArsipSurat::findOrFail($id);
+        $mou = MOU::findOrFail($id);
     
         // Hapus model
-        $arsip_surat->delete();
+        $mou->delete();
     
         // Redirect dengan pesan sukses
         return redirect()->route('home')->with('success', 'Data berhasil dihapus');

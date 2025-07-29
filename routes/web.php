@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MOUController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,16 +50,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('/profile', ProfileController::class)->only(['index', 'update', 'show'])->middleware('auth');
 
     // HOME
-    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+    Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
     Route::delete('/home/{id}', [HomeController::class, 'destroy'])->name('home.delete');
     Route::get('/search-home', [HomeController::class, 'searchHome'])->name('search.home');
 
-    // ARSIP SURAT
-    Route::resource('/arsip_surat', ArsipController::class)->middleware('auth');
-    Route::get('arsip_surat/create', [ArsipController::class, 'create'])->name('arsip_surat.create');
-    Route::post('arsip_surat/store', [ArsipController::class, 'store'])->name('arsip_surat.store');
-    Route::put('/arsip_surat/update', [ArsipController::class, 'update'])->name('arsip_surat.update');
-    Route::get('/arsip_surat/download/{id}', [ArsipController::class, 'download'])->name('arsip_surat.download');
+    // MOU
+    Route::resource('/mou', MOUController::class);
+    Route::get('/search-mou', [MOUController::class, 'searchMOU'])->name('search.mou');
+    Route::get('/mou/download/{id}', [MOUController::class, 'download'])->name('mou.download');
+    Route::get('/mou/upload', [MOUController::class, 'upload'])->name('mou.upload');
+    Route::post('/mou/upload', [MOUController::class, 'uploadProcess'])->name('mou.upload.process');
+
 
     // KATEGORI SURAT
     Route::get('/kategori_surat', [KategoriController::class, 'index'])->name('kategori_surat')->middleware('auth');
