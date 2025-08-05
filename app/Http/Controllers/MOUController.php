@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MOUExport;
 use App\Helpers\DateHelper;
 use App\Imports\MouImport;
-use App\Models\Home;
 use App\Models\MOU;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use setasign\Fpdi\Tcpdf\Fpdi;
@@ -137,6 +136,11 @@ class MOUController extends Controller
         return redirect()->route('mou.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
+    public function export()
+    {
+        return Excel::download(new MOUExport, 'Data MOU Gupeg SIT Permata.xlsx');
+    }
+
     public function upload()
     {
         return view('mou.index'); // Buat view ini nanti
@@ -162,7 +166,6 @@ class MOUController extends Controller
         $mou = Mou::findOrFail($id);
         return view('mou.edit', compact('mou'));
     }
-
 
     public function update(Request $request, $id)
     {

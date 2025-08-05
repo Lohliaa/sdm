@@ -28,12 +28,12 @@ Form Login
                                         <form class="user" method="POST" action="{{ route('login') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="email" name="email" class="form-control form-control-user"
-                                                    id="exampleInputEmail" aria-describedby="emailHelp"
-                                                    placeholder="Masukan Email Address..." value="{{ old('email') }}"
-                                                    required autocomplete="email" autofocus>
+                                                <input type="text" name="name" class="form-control form-control-user"
+                                                    id="exampleInputName" aria-describedby="nameHelp"
+                                                    placeholder="Masukkan Nama..." value="{{ old('name') }}"
+                                                    required autocomplete="name" autofocus>
                                             </div>
-                                            @error('email')
+                                            @error('name')
                                             <div class="alert alert-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </div>
@@ -74,7 +74,8 @@ Form Login
     Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
-        text: '{{ session('success') }}',
+        text: '{{ session('
+        success ') }}',
         showConfirmButton: false,
         timer: 2000
     });
@@ -86,7 +87,8 @@ Form Login
     Swal.fire({
         icon: 'error',
         title: 'Gagal!',
-        text: '{{ session('error') }}',
+        text: '{{ session('
+        error ') }}',
         showConfirmButton: true
     });
 </script>

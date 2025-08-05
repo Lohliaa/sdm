@@ -9,8 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MOUController;
+use App\Http\Controllers\SKController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('/user', UserController::class)->middleware('checkRole:Admin');
     Route::resource('/dashboard', DashboardController::class)->only(['index'])->middleware('checkRole:Admin');
-    Route::resource('/profile', ProfileController::class)->only(['index', 'update', 'show'])->middleware('auth');
+    Route::resource('/profile', UserController::class)->only(['index', 'update', 'show'])->middleware('auth');
 
     // HOME
     Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -60,26 +60,27 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/mou/download/{id}', [MOUController::class, 'download'])->name('mou.download');
     Route::get('/mou/upload', [MOUController::class, 'upload'])->name('mou.upload');
     Route::post('/mou/upload', [MOUController::class, 'uploadProcess'])->name('mou.upload.process');
+    Route::get('/export-mou', [MOUController::class, 'export'])->name('mou.export');
 
-
-    // KATEGORI SURAT
-    Route::get('/kategori_surat', [KategoriController::class, 'index'])->name('kategori_surat')->middleware('auth');
-    Route::delete('/kategori_surat/{id}', [KategoriController::class, 'destroy'])->name('kategori_surat.delete');
-    Route::post('/kategori_surat/store', [KategoriController::class, 'store'])->name('kategori_surat.store');
-    Route::put('/kategori_surat/update', [KategoriController::class, 'update'])->name('kategori_surat.update');
-    Route::get('/search-ks', [KategoriController::class, 'searchks'])->name('search.kategori_surat');
+    // SK
+    Route::resource('/sk', SKController::class);
+    Route::get('/search-sk', [SKController::class, 'searchSK'])->name('search.sk');
+    Route::get('/sk/download/{id}', [SKController::class, 'download'])->name('sk.download');
+    Route::get('/sk/upload', [SKController::class, 'upload'])->name('sk.upload');
+    Route::post('/sk/upload', [SKController::class, 'uploadProcess'])->name('sk.upload.process');
+    Route::get('/export-sk', [SKController::class, 'export'])->name('sk.export');
 
     //ABOUT
     Route::get('/about', [AboutController::class, 'index'])->name('about')->middleware('auth');
 
-    // PROFILE
-    Route::resource('/profile', UserController::class)->middleware('auth');
-    Route::post('reset_profile', [UserController::class, 'reset_profile'])->name('reset_profile');
-    Route::get('edit_profile/{id}', [UserController::class, 'edit']);
-    Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('update.profile');
-    Route::delete('/delete-profile',  [UserController::class, 'deleteItems'])->name('profile.delete');
-    Route::get('/search-profile', [UserController::class, 'searchProfile'])->name('search.profile');
-    Route::get('/cari', [UserController::class, 'cari'])->name('profile.cari');
+    // USER
+    Route::resource('/user', UserController::class)->middleware('auth');
+    Route::post('reset_user', [UserController::class, 'reset_user'])->name('reset_user');
+    // Route::get('edit_user/{id}', [UserController::class, 'edit']);
+    // Route::post('/update-user/{id}', [UserController::class, 'update'])->name('update.user');
+    Route::delete('/delete-user',  [UserController::class, 'deleteItems'])->name('user.delete');
+    Route::get('/search-user', [UserController::class, 'searchUser'])->name('search.user');
+    Route::get('/cari', [UserController::class, 'cari'])->name('user.cari');
 
     Route::get('/unduh/{nama_file}', [HomeController::class, 'unduh'])->name('unduh');
 });

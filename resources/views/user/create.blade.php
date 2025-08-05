@@ -1,0 +1,93 @@
+@extends('layouts.master')
+@section('judul')
+@endsection
+@section('judul_sub')
+TAMBAH AKUN
+@endsection
+@section('content')
+
+<body>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 text-center">
+            <h4 class="font-weight-bold text-primary mb-0">TAMBAH AKUN GURU PEGAWAI SIT PERMATA</h4>
+        </div>
+        <div class="card-body">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Oops! Ada error saat menyimpan data:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" id="password" value="{{ old('password') }}">
+                            <span class="input-group-text" onclick="togglePassword('password', this)" style="cursor: pointer;">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                        <label>Ulangi Password</label>
+                        <div class="input-group">
+                            <input type="password" name="chain" class="form-control" id="chain" value="{{ old('chain') }}">
+                            <span class="input-group-text" onclick="togglePassword('chain', this)" style="cursor: pointer;">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Role</label>
+                        <select name="role" class="form-control">
+                            <option value="" disabled selected>-- Pilih Role --</option>
+                            <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="Staff" {{ old('role') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                            <option value="Guru" {{ old('role') == 'Guru' ? 'selected' : '' }}>Guru</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-12 mt-4">
+                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                        <a href="{{ route('user.index') }}" class="btn btn-secondary">Batal</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script>
+    function togglePassword(fieldId, iconElement) {
+        const input = document.getElementById(fieldId);
+        const icon = iconElement.querySelector('i');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
+
+@endsection

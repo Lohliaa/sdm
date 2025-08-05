@@ -26,6 +26,11 @@
             <span>MOU</span></a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ url('sk') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>SK</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ url('kategori_surat') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Kategori Surat</span></a>

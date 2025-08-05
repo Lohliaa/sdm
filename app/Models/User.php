@@ -81,11 +81,6 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    public function profile()
-    {
-        return $this->hasOne('App\Models\Profile');
-    }
-
     public function getCreatedAtAttribute()
     {
         return Carbon::parse($this->attributes['created_at'])->translatedFormat('l, d F Y H:i:s');

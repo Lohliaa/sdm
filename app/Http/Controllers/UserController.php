@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UserImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,28 +20,28 @@ class UserController extends Controller
     public function index()
     {
         set_time_limit(0);
-        $profile = User::orderBy('id', 'asc')->paginate(10000);
-        $count = $profile->count();
-        $data = $profile->all();
-        return view('profile.index', compact('profile', 'count', 'data'));
+        $user = User::orderBy('id', 'asc')->paginate(10000);
+        $count = $user->count();
+        $data = $user->all();
+        return view('user.index', compact('user', 'count', 'data'));
     }
 
     public function cari(Request $request)
     {
         $keyword = $request->cari;
-        $profile = User::where(function ($query) use ($keyword) {
+        $user = User::where(function ($query) use ($keyword) {
             $query->where('name', 'like', "%{$keyword}%")
                 ->orWhere('email', 'like', "%{$keyword}%")
                 ->orWhere('password', 'like', "%{$keyword}%")
                 ->orWhere('chain', 'like', "%{$keyword}%")
                 ->orWhere('role', 'like', "%{$keyword}%");
         })->get();
-        return view('profile.index', compact('profile'));
+        return view('user.index', compact('user'));
     }
 
-    public function searchProfile(Request $request)
+    public function searchUser(Request $request)
     {
-        $searchTerm = $request->input('profile');
+        $searchTerm = $request->input('user');
 
         $query = User::query();
 
@@ -51,55 +53,90 @@ class UserController extends Controller
                 ->orWhere('role', 'LIKE', '%' . $searchTerm . '%');
         }
 
-        $profile = $query->paginate(100);
+        $user = $query->paginate(100);
 
-        return view('profile.partial.profile', ['profile' => $profile]);
+        return view('user.partial.user', ['user' => $user]);
     }
 
-    public function edit($id)
+    public function upload()
     {
-        //
+        return view('user.index'); // Buat view ini nanti
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function uploadProcess(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv', // Sesuaikan dengan kebutuhan
+        ]);
+
+        // Contoh: menyimpan file upload ke storage
+        $path = $request->file('file')->store('uploads');
+
+        // Jika menggunakan Laravel Excel (opsional)
+        Excel::import(new UserImport, $request->file('file'));
+
+        return redirect()->route('user.index')->with('success', 'Data berhasil diupload.');
+    }
+
+    public function create()
+    {
+        return view('user.create');
+    }
+
+
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'password' => 'required',
             'chain' => 'required',
             'role' => 'required',
         ]);
 
-        $profile = User::find($id);
-
-        $profile->name = $request->input('name');
-        $profile->email = $request->input('email');
-        $profile->chain = $request->input('chain');
-        // Set the password to be the same as the chain
-        $profile->password = bcrypt($request->input('chain'));
-
-        $profile->role = $request->input('role');
-
-        if ($profile->save()) {
-            return redirect()->route('profile.index')->with(['success' => 'Data Berhasil Diperbarui!']);
-        } else {
-            return redirect()->route('profile.index')->with(['error' => 'Data Gagal Diperbarui!']);
-        }
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'chain' => $request->chain,
+            'role' => $request->role,
+        ]);
+        return redirect()->route('user.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'role' => 'required',
+            'password' => 'nullable|min:6',
+            'chain' => 'same:password', // bandingkan chain dengan password
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+            $user->chain = $request->password;
+        }
+
+        $user->save();
+
+        return redirect()->route('user.index')->with('success', 'Data berhasil diupdate.');
+    }
+
     public function destroy($id)
     {
         //
@@ -114,7 +151,7 @@ class UserController extends Controller
         return response()->json(['message' => 'Data berhasil dihapus.']);
     }
 
-    public function reset_profile()
+    public function reset_user()
     {
         User::truncate();
         return response()->json(['success' => "Deleted successfully."]);

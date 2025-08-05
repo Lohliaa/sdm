@@ -2,7 +2,7 @@
 @section('judul')
 @endsection
 @section('judul_sub')
-MOU
+SK
 @endsection
 @section('content')
 
@@ -12,22 +12,23 @@ MOU
 <body>
     <div class="card shadow mb-4">
         <div class="card-header py-3 text-center">
-            <h4 class="font-weight-bold text-primary mb-0">MOU GURU PEGAWAI SIT PERMATA MOJOKERTO</h4>
+            <h4 class="font-weight-bold text-primary mb-0">SK GURU PEGAWAI SIT PERMATA MOJOKERTO</h4>
         </div>
         <div class="row justify-content-end">
             <div class="input-group col-md-4 mt-2 mb-2">
-                <label for="searchp" class="ml-2 mr-3 mt-2" style="font-size: 12pt;">Cari MoU:</label>
-                <input type="text" name="search" id="searchp" class="form-control input-text" placeholder="Search"
+                <label for="searchSK" class="ml-2 mr-3 mt-2" style="font-size: 12pt;">Cari SK:</label>
+                <input type="text" name="search" id="searchSK" class="form-control input-text" placeholder="Search"
                     aria-label="Recipient's username" aria-describedby="basic-addon2">
             </div>
-            <a href="{{ route('mou.create') }}" class="btn btn-success mr-2 mt-2" style="height: 38px;"><i class="bi bi-plus-square"></i></a>
-            <form action="{{ route('mou.upload.process') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <a href="{{ route('sk.create') }}" class="btn btn-success mr-2 mt-2" style="height: 38px;"><i class="bi bi-plus-square"></i></a>
+            <form action="{{ route('sk.upload.process') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
                 @csrf
                 <input type="file" name="file" id="fileInput" class="d-none" required>
                 <button type="button" class="btn btn-secondary mr-2 mt-2" onclick="document.getElementById('fileInput').click();">
                     <i class="bi bi-upload"></i></button>
             </form>
-            <a href="{{ route('mou.export') }}" class="btn btn-info mr-5 mt-2" style="height: 38px;"><i class="bi bi-download"></i></a>
+            <a href="{{ route('sk.export') }}" class="btn btn-info mr-5 mt-2" style="height: 38px;"><i class="bi bi-download"></i></a>
+
         </div>
 
         <!-- Modal Gagal -->
@@ -71,7 +72,7 @@ MOU
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewModalLabel">Detail Data MOU</h5>
+                        <h5 class="modal-title" id="viewModalLabel">Detail Data SK</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                                 class="bi bi-x-lg"></i></button>
                     </div>
@@ -83,59 +84,32 @@ MOU
                             <strong>No Tambahan:</strong> <span id="viewSKtambahan"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Status Kepegawaian:</strong> <span id="viewKepegawaian"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Status Detail:</strong> <span id="viewDetail"></span>
-                        </div>
-                        <div class="mb-3">
                             <strong>Nama:</strong> <span id="viewNama"></span>
                         </div>
                         <div class="mb-3">
                             <strong>Gelar:</strong> <span id="viewGelar"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Hari Kerja:</strong> <span id="viewHariKerja"></span>
+                            <strong>Tempat Lahir:</strong> <span id="viewTempatLahir"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Jam Kerja:</strong> <span id="viewJamKerja"></span>
+                            <strong>Tanggal Lahir:</strong> <span id="viewTanggalLahir"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Alamat:</strong> <span id="viewAlamat"></span>
+                            <strong>NIPY:</strong> <span id="viewNIPY"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Hari MoU:</strong> <span id="viewHari"></span>
+                            <strong>Gol Ruang:</strong> <span id="viewGolRuang"></span>
                         </div>
 
                         <div class="mb-3">
-                            <strong>Tanggal MoU:</strong> <span id="viewTanggalMOU"></span>
+                            <strong>Status Kepegawaian:</strong> <span id="viewStatusKepegawaian"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>TTL:</strong> <span id="viewTTL"></span>
+                            <strong>Unit Kerja:</strong> <span id="viewUnitKerja"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Unit Kerja:</strong> <span id="viewUnit"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Gaji Pokok:</strong> <span id="viewGaji"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Tunjangan Jabatan:</strong> <span id="viewTJabatan"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Tunjangan Transport:</strong> <span id="viewTTransport"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Tunjangan Kinerja:</strong> <span id="viewTKinerja"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Tunjangan Fungsional:</strong> <span id="viewTFungsional"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>THP:</strong> <span id="viewThp"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Terbilang:</strong> <span id="viewTerbilang"></span>
+                            <strong>TMT:</strong> <span id="viewTMT"></span>
                         </div>
                         <div class="mb-3">
                             <strong>Tanggal Mulai:</strong> <span id="viewTanggalMulai"></span>
@@ -147,10 +121,7 @@ MOU
                             <strong>Tanggal Akhir:</strong> <span id="viewTanggalAkhir"></span>
                         </div>
                         <div class="mb-3">
-                            <strong>Saksi 1:</strong> <span id="viewSaksi1"></span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Saksi 2:</strong> <span id="viewSaksi2"></span>
+                            <strong>Tanggal Ditetapkan:</strong> <span id="viewTanggalDitetapkan"></span>
                         </div>
 
                         <div class="embed-responsive embed-responsive-16by9">
@@ -168,73 +139,51 @@ MOU
         <div id="filtered-data-container">
             <div class="card-body pt-0">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="mouTableBody">
+                    <table class="table table-striped" id="skTableBody">
                         <thead style="background-color: #263a74; color:white; position: sticky; top: 0;">
                             <tr>
                                 <td style="vertical-align: middle;">No</td>
                                 <td style="vertical-align: middle;">No SK</td>
                                 <td style="vertical-align: middle;">No Tambahan</td>
-                                <td style="vertical-align: middle;">Status Kepegawaian</td>
-                                <td style="vertical-align: middle;">Status Detail</td>
                                 <td style="vertical-align: middle;">Nama</td>
                                 <td style="vertical-align: middle;">Gelar</td>
-                                <td style="vertical-align: middle;">Hari Kerja</td>
-                                <td style="vertical-align: middle;">Jam Kerja</td>
-                                <td style="vertical-align: middle;">Alamat</td>
-                                <td style="vertical-align: middle;">Hari MoU</td>
-                                <td style="vertical-align: middle;">Tanggal MoU</td>
                                 <td style="vertical-align: middle;">Tempat Lahir</td>
                                 <td style="vertical-align: middle;">Tanggal Lahir</td>
+                                <td style="vertical-align: middle;">NIPY</td>
+                                <td style="vertical-align: middle;">Gol Ruang</td>
+                                <td style="vertical-align: middle;">Status Kepegawaian</td>
                                 <td style="vertical-align: middle;">Unit Kerja</td>
-                                <td style="vertical-align: middle;">Gaji Pokok</td>
-                                <td style="vertical-align: middle;">Tunjangan Jabatan</td>
-                                <td style="vertical-align: middle;">Tunjangan Transport</td>
-                                <td style="vertical-align: middle;">Tunjangan Kinerja</td>
-                                <td style="vertical-align: middle;">Tunjangan Fungsional</td>
-                                <td style="vertical-align: middle;">THP</td>
-                                <td style="vertical-align: middle;">Terbilang</td>
+                                <td style="vertical-align: middle;">TMT</td>
                                 <td style="vertical-align: middle;">Tanggal Mulai</td>
-                                <td style="vertical-align: middle;">Berlaku (bulan)</td>
+                                <td style="vertical-align: middle;">Berlaku</td>
                                 <td style="vertical-align: middle;">Tanggal Akhir</td>
-                                <td style="vertical-align: middle;">Saksi 1</td>
-                                <td style="vertical-align: middle;">Saksi 2</td>
+                                <td style="vertical-align: middle;">Tanggal Ditetapkan</td>
                                 <td style="vertical-align: middle;">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1 ?>
-                            @foreach ($mou as $h)
+                            @foreach ($sk as $h)
                             <tr id="tr_{{ $h->id }}">
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $h->no_sk }}</td>
                                 <td>{{ $h->no_tambahan }}</td>
-                                <td>{{ $h->status_kepegawaian }}</td>
-                                <td>{{ $h->status_detail }}</td>
                                 <td>{{ $h->nama }}</td>
                                 <td>{{ $h->gelar }}</td>
-                                <td>{{ $h->hari_kerja }}</td>
-                                <td>{{ $h->jam_kerja }}</td>
-                                <td>{{ $h->alamat }}</td>
-                                <td>{{ $h->hari }}</td>
-                                <td>{{ $h->tgl_mou }}</td>
                                 <td>{{ $h->tempat_lahir }}</td>
-                                <td>{{ $h->tanggal_lahir }}</td>
+                                <td>{{ $h->tanggal_lahir}}</td>
+                                <td>{{ $h->nipy }}</td>
+                                <td>{{ $h->gol_ruang }}</td>
+                                <td>{{ $h->status_kepegawaian }}</td>
                                 <td>{{ $h->unit_kerja }}</td>
-                                <td>{{ $h->gaji_pokok }}</td>
-                                <td>{{ $h->tunjangan_jabatan }}</td>
-                                <td>{{ $h->tunjangan_transport }}</td>
-                                <td>{{ $h->tunjangan_kinerja }}</td>
-                                <td>{{ $h->tunjangan_fungsional }}</td>
-                                <td>{{ $h->thp }}</td>
-                                <td>{{ $h->terbilang }}</td>
-                                <td>{{ $h->tgl_mulai }}</td>
+                                <td>{{ $h->tmt }}</td>
+                                <td>{{ $h->tanggal_mulai }}</td>
                                 <td>{{ $h->berlaku }}</td>
                                 <td>{{ $h->tanggal_akhir }}</td>
-                                <td>{{ $h->saksi1 }}</td>
-                                <td>{{ $h->saksi2 }}</td>
+                                <td>{{ $h->tanggal_ditetapkan }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <form id="deleteForm_{{ $h->id }}" action="{{ route('mou.destroy', $h->id) }}"
+                                        <form id="deleteForm_{{ $h->id }}" action="{{ route('sk.destroy', $h->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -245,21 +194,16 @@ MOU
                                         </form>
                                         <button type="button" class="btn btn-warning mr-2" data-bs-toggle="modal"
                                             data-bs-target="#viewModal" data-noSK="{{ $h->no_sk }}"
-                                            data-skTambahan="{{ $h->no_tambahan }}" data-kepegawaian="{{ $h->status_kepegawaian }}" data-detail="{{ $h->status_detail }}"
+                                            data-skTambahan="{{ $h->no_tambahan }}"
                                             data-nama="{{ $h->nama }}" data-gelar="{{ $h->gelar }}"
-                                            data-hari_kerja="{{ $h->hari_kerja }}" data-jam_kerja="{{ $h->jam_kerja }}"
-                                            data-alamat="{{ $h->alamat }}" data-hari="{{ $h->hari }}"
-                                            data-tanggal_mou="{{ $h->tgl_mou }}" data-TTL="{{ $h->tanggal_lahir }}"
-                                            data-unit="{{ $h->unit_kerja }}" data-gaji="{{ $h->gaji_pokok }}"
-                                            data-TJabatan="{{ $h->tunjangan_jabatan }}" data-TTransport="{{ $h->tunjangan_transport }}"
-                                            data-TKinerja="{{ $h->tunjangan_kinerja }}" data-TFungsional="{{ $h->tunjangan_fungsional }}"
-                                            data-thp="{{ $h->thp }}" data-terbilang="{{ $h->terbilang }}"
-                                            data-tgl_mulai="{{ $h->tgl_mulai }}" data-berlaku="{{ $h->berlaku }}"
-                                            data-tanggal_akhir="{{ $h->tanggal_akhir }}" data-saksi1="{{ $h->saksi1 }}"
-                                            data-saksi2="{{ $h->saksi2 }}">
-                                            <i class="bi bi-eye"></i>
+                                            data-tempat_lahir="{{ $h->tempat_lahir }}" data-tanggal_lahir="{{ $h->tanggal_lahir }}"
+                                            data-nipy="{{ $h->nipy }}" data-gol_ruang="{{ $h->gol_ruang }}"
+                                            data-status_kepegawaian="{{ $h->status_kepegawaian }}" data-unit_kerja="{{ $h->unit_kerja }}"
+                                            data-tmt="{{ $h->tmt }}" data-tanggal_mulai="{{ $h->tanggal_mulai }}"
+                                            data-berlaku="{{ $h->berlaku }}" data-tanggal_akhir="{{ $h->tanggal_akhir }}"
+                                            data-tanggal_ditetapkan="{{ $h->tanggal_ditetapkan }}"><i class="bi bi-eye"></i>
                                         </button>
-                                        <a href="{{ route('mou.edit', $h->id) }}" class="btn btn-primary mr-2">
+                                        <a href="{{ route('sk.edit', $h->id) }}" class="btn btn-primary mr-2">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </div>
@@ -270,6 +214,9 @@ MOU
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{ $sk->links() }}
         </div>
     </div>
     @if(session('success'))
@@ -329,74 +276,54 @@ MOU
             // Ambil data dari atribut data-* tombol
             var no_sk = button.getAttribute('data-noSK');
             var no_tambahan = button.getAttribute('data-skTambahan');
-            var status_kepegawaian = button.getAttribute('data-kepegawaian');
-            var status_detail = button.getAttribute('data-detail');
             var nama = button.getAttribute('data-nama');
             var gelar = button.getAttribute('data-gelar');
-            var hari_kerja = button.getAttribute('data-hari_kerja');
-            var jam_kerja = button.getAttribute('data-jam_kerja');
-            var alamat = button.getAttribute('data-alamat');
-            var hari = button.getAttribute('data-hari');
-            var tanggal_mou = button.getAttribute('data-tanggal_mou');
-            var TTL = button.getAttribute('data-TTL');
-            var unit = button.getAttribute('data-unit');
-            var gaji = button.getAttribute('data-gaji');
-            var TJabatan = button.getAttribute('data-TJabatan');
-            var TTransport = button.getAttribute('data-TTransport');
-            var TKinerja = button.getAttribute('data-TKinerja');
-            var TFungsional = button.getAttribute('data-TFungsional');
-            var thp = button.getAttribute('data-thp');
-            var terbilang = button.getAttribute('data-terbilang');
-            var tgl_mulai = button.getAttribute('data-tgl_mulai');
+            var tempat_lahir = button.getAttribute('data-tempat_lahir');
+            var tanggal_lahir = button.getAttribute('data-tanggal_lahir');
+            var nipy = button.getAttribute('data-nipy');
+            var gol_ruang = button.getAttribute('data-gol_ruang');
+            var status_kepegawaian = button.getAttribute('data-status_kepegawaian');
+            var unit_kerja = button.getAttribute('data-unit_kerja');
+            var tmt = button.getAttribute('data-tmt');
+            var tanggal_mulai = button.getAttribute('data-tanggal_mulai');
             var berlaku = button.getAttribute('data-berlaku');
             var tanggal_akhir = button.getAttribute('data-tanggal_akhir');
-            var saksi1 = button.getAttribute('data-saksi1');
-            var saksi2 = button.getAttribute('data-saksi2');
+            var tanggal_ditetapkan = button.getAttribute('data-tanggal_ditetapkan');
 
             // Isi data modal
             viewModal.querySelector('#viewNoSK').textContent = no_sk;
             viewModal.querySelector('#viewSKtambahan').textContent = no_tambahan;
-            viewModal.querySelector('#viewKepegawaian').textContent = status_kepegawaian;
-            viewModal.querySelector('#viewDetail').textContent = status_detail;
             viewModal.querySelector('#viewNama').textContent = nama;
             viewModal.querySelector('#viewGelar').textContent = gelar;
-            viewModal.querySelector('#viewHariKerja').textContent = hari_kerja;
-            viewModal.querySelector('#viewJamKerja').textContent = jam_kerja;
-            viewModal.querySelector('#viewAlamat').textContent = alamat;
-            viewModal.querySelector('#viewHari').textContent = hari;
-            viewModal.querySelector('#viewTanggalMOU').textContent = tanggal_mou;
-            viewModal.querySelector('#viewTTL').textContent = TTL;
-            viewModal.querySelector('#viewUnit').textContent = unit;
-            viewModal.querySelector('#viewGaji').textContent = gaji;
-            viewModal.querySelector('#viewTJabatan').textContent = TJabatan;
-            viewModal.querySelector('#viewTTransport').textContent = TTransport;
-            viewModal.querySelector('#viewTKinerja').textContent = TKinerja;
-            viewModal.querySelector('#viewTFungsional').textContent = TFungsional;
-            viewModal.querySelector('#viewThp').textContent = thp;
-            viewModal.querySelector('#viewTerbilang').textContent = terbilang;
-            viewModal.querySelector('#viewTanggalMulai').textContent = tgl_mulai;
+            viewModal.querySelector('#viewTempatLahir').textContent = tempat_lahir;
+            viewModal.querySelector('#viewTanggalLahir').textContent = tanggal_lahir;
+            viewModal.querySelector('#viewNIPY').textContent = nipy;
+            viewModal.querySelector('#viewGolRuang').textContent = gol_ruang;
+            viewModal.querySelector('#viewStatusKepegawaian').textContent = status_kepegawaian;
+            viewModal.querySelector('#viewUnitKerja').textContent = unit_kerja;
+            viewModal.querySelector('#viewTMT').textContent = tmt;
+            viewModal.querySelector('#viewTanggalMulai').textContent = tanggal_mulai;
             viewModal.querySelector('#viewBerlaku').textContent = berlaku;
             viewModal.querySelector('#viewTanggalAkhir').textContent = tanggal_akhir;
-            viewModal.querySelector('#viewSaksi1').textContent = saksi1;
-            viewModal.querySelector('#viewSaksi2').textContent = saksi2;
+            viewModal.querySelector('#viewTanggalDitetapkan').textContent = tanggal_ditetapkan;
         });
     });
 </script>
 
 <script>
-    function searchMOU() {
-        const selected = document.getElementById('searchp').value;
+    function searchSK() {
+        const selected = document.getElementById('searchSK').value;
 
-        fetch(`{{ route('search.mou') }}?mou=${encodeURIComponent(selected)}`)
+        fetch(`{{ route('search.sk') }}?sk=${encodeURIComponent(selected)}`)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('mouTableBody').innerHTML = data;
+                document.getElementById('skTableBody').innerHTML = data;
             })
             .catch(error => console.error('Error:', error));
     }
 
-    document.getElementById('searchp').addEventListener('input', function() {
-        searchMOU();
+    document.getElementById('searchSK').addEventListener('input', function() {
+        searchSK();
     });
 </script>
 

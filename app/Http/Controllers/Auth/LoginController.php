@@ -25,6 +25,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // Ubah login agar menggunakan kolom 'name'
+    public function username()
+    {
+        return 'name';
+    }
  
     /**
      * Menangani jika login gagal.
@@ -32,7 +38,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         return redirect()->back()
-            ->withInput($request->only('email'))
+            ->withInput($request->only('name'))
             ->with('error', 'Email atau password salah.');
     }
 
